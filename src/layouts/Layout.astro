@@ -3,23 +3,25 @@ export interface Props {
 	title: string;
 }
 
-const { title } = Astro.props;
+const { title, classes } = Astro.props;
 ---
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="text-white font-sans">
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="generator" content={Astro.generator} />
+		<link rel="stylesheet" href="../styles/Animations.css" />
 		<title>{title}</title>
 	</head>
-	<body>
+	<body class={classes}>
 		<slot />
 	</body>
 </html>
 <style is:global>
+	@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200;300;400;500;600;700;800&display=swap');
+
 	:root {
 		--accent: 124, 58, 237;
 		--accent-gradient: linear-gradient(45deg, rgb(var(--accent)), #da62c4 30%, white 60%);
@@ -33,3 +35,9 @@ const { title } = Astro.props;
 			Bitstream Vera Sans Mono, Courier New, monospace;
 	}
 </style>
+
+<script>
+	import VanillaTilt from 'vanilla-tilt';
+	VanillaTilt.init(document.querySelectorAll('.data-tilt'), {
+	});
+</script>

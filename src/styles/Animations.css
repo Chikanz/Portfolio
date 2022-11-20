@@ -1,0 +1,30 @@
+h1 {
+    animation: boom ease-out 2.5s;
+}
+
+@keyframes boom {
+    0% {
+        color: transparent;
+        text-shadow: 0 0 transparent,-3px -30px 0 transparent,-6px -30px 0 transparent,-9px -30px 0 transparent
+    }
+
+    25% {
+        color: transparent;
+        text-shadow: 0 0 transparent,-3px -30px 0 transparent,-6px -30px 0 transparent,-9px 9px 0 #8c2aee
+    }
+
+    50% {
+        color: transparent;
+        text-shadow: 0 0 transparent,-3px -30px 0 transparent,-6px 6px 0 #a871e0,-9px 9px 0 #8c2aee
+    }
+
+    75% {
+        color: transparent;
+        text-shadow: 0 -30px transparent,-3px 3px 0 #c89ef4,-6px 6px 0 #a871e0,-9px 9px 0 #8c2aee
+    }
+
+    100% {
+        color: transparent;
+        text-shadow: 0 0 #e7cfff,-3px 3px 0 #c89ef4,-6px 6px 0 #a871e0,-9px 9px 0 #8c2aee
+    }
+}
