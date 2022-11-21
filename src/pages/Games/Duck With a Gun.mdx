@@ -1,17 +1,19 @@
 ---
+layout: ../../layouts/PostLayout.astro
 title: Duck with a gun
 description: Weird third person shooter
 img: duck.jpg
 icons: [unity]
 ---
 
+import Gfycat from '../../components/Gfycat.astro';
 
 ### What?
 
 Duck with a gun is a third person cover shooter where you play as a duck taking down the mob, John Wick style. A small but growing community has found the game via my [youtube channel](https://www.youtube.com/c/dookdook/) where I talk about my development progress and process.
 
 ### Who?
-Almost all me with additional art by [Alan Robinson](https://twitter.com/arobinsonswork)
+Mostly just me, with additional art by [Alan Robinson](https://twitter.com/arobinsonswork)
 
 
 > "Duck With A Gun just looks… fun? Messy, broken fun, for sure, but there’s enough table-flipping, slow motion physics nonsense to give it an identity beyond “what if that horrible goose was packing heat?”
@@ -38,8 +40,7 @@ To ensure my new system was working properly I created a super simple test scene
 - The urge to reload was driven inversely by ammo count
 - The urge to heal was inversely driven by current health and how many enemies were present.
 
-
-<img data-id="DigitalHandyFattaileddunnart" class="gfyitem" />  
+<Gfycat id="DigitalHandyFattaileddunnart"/>
 
 After confirming the test worked I copied over the brain to my game scene and hooked up the inputs to the existing code with some additional modification. 
 
@@ -57,4 +58,4 @@ Although it can be fiddly sometimes with getting the scoring right, overall I th
 
 since it's much more expensive. The next step would be to bake this data in with the visibility although I haven't gotten around to it. The AI also has problems running across firing lines from other enemies or the player which is kind of hilarious but this could be fixed by excluding those points like in the killzone 2 paper but I haven't gotten around to it. 
 
-<img data-id="velvetygaseousakitainu" class="gfyitem" />  
+<Gfycat id="velvetygaseousakitainu"/>

@@ -17,5 +17,5 @@ import prefetch from "@astrojs/prefetch";
 
 // https://astro.build/config
 export default defineConfig({
-  integrations: [react(), tailwind(), image(), mdx(), prefetch()]
+  integrations: [react(), tailwind({config: { applyBaseStyles: true }}), image(), mdx(), prefetch()]
 });

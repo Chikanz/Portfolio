@@ -8,36 +8,21 @@ const { title, classes } = Astro.props;
 
 <!DOCTYPE html>
 <html lang="en" class="text-white font-sans">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="stylesheet" href="../styles/Animations.css" />
-		<title>{title}</title>
-	</head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width" />
+	<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+	<title>{title}</title>
+
 	<body class={classes}>
 		<slot />
 	</body>
 </html>
-<style is:global>
-	@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200;300;400;500;600;700;800&display=swap');
 
-	:root {
-		--accent: 124, 58, 237;
-		--accent-gradient: linear-gradient(45deg, rgb(var(--accent)), #da62c4 30%, white 60%);
-	}
-	html {
-		font-family: system-ui, sans-serif;
-		background-color: #F6F6F6;
-	}
-	code {
-		font-family: Menlo, Monaco, Lucida Console, Liberation Mono, DejaVu Sans Mono,
-			Bitstream Vera Sans Mono, Courier New, monospace;
-	}
+<style is:global>
+	@import url("https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200;300;400;500;600;700;800&display=swap");
 </style>
 
 <script>
-	import VanillaTilt from 'vanilla-tilt';
-	VanillaTilt.init(document.querySelectorAll('.data-tilt'), {
-	});
+	import VanillaTilt from "vanilla-tilt";
+	VanillaTilt.init(document.querySelectorAll(".data-tilt"), {});
 </script>

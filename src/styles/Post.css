@@ -1,0 +1,30 @@
+@import url("https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200;300;400;500;600;700;800&display=swap");
+
+/* Post content */
+main h2 {
+    @apply text-3xl font-bold mt-12;
+}
+
+main h3 {
+    @apply text-2xl mt-4 font-bold;;
+}
+
+main p {
+    @apply my-4;
+}
+
+main a {
+    @apply underline text-[#ffc700];
+}
+
+main blockquote {
+    padding: 2%;
+    border-left: 5px solid #ffc700;
+    margin-bottom: 0px;
+    padding-top: 0px;
+    @apply text-2xl my-5 mt-8 py-0
+}
+
+main video {
+    @apply my-4;
+}

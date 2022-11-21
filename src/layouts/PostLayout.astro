@@ -1,0 +1,51 @@
+---
+export interface Props {
+	frontmatter: {
+		title: string;
+		description: string;
+		img: string;
+		icons: string[];
+	};
+}
+
+const { frontmatter } = Astro.props;
+
+import "../styles/Post.css";
+
+---
+
+<!DOCTYPE html>
+<html lang="en" class="text-white font-sans bg-[#ffc700]">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<title>{frontmatter.title} | Zac's Portfolio</title>
+	</head>
+
+	<body>
+		<article
+			class="max-w-3xl mx-auto bg-[#6d57ff] ring-2 ring-black mt-10 rounded-md"
+		>
+			<!-- Title -->
+			<header class="text-center p-10 pb-5">
+				<h1 class="text-white-light text-5xl mb-3">
+					{frontmatter.title}
+				</h1>
+				<h2 class="text-white-light text-2xl mb-3">
+					{frontmatter.description}
+				</h2>
+			</header>
+
+			<!-- Post -->
+			<main class="px-16 text-lg">
+				<slot />
+			</main>
+		</article>
+	</body>
+</html>
+
+<script>
+	import { fetchVids } from "../util/FetchGFY";
+	fetchVids();
+</script>

@@ -1,6 +1,6 @@
 import { Suspense } from 'react'
 import { Canvas } from '@react-three/fiber'
-import { Bounds, useBounds, OrbitControls, ContactShadows, useGLTF } from '@react-three/drei'
+import { Bounds, useBounds, OrbitControls, ContactShadows, useGLTF, PresentationControls } from '@react-three/drei'
 
 
 export default function Junk(props) {
@@ -24,7 +24,8 @@ export default function Junk(props) {
         </Bounds>
         {/* <ContactShadows rotation-x={Math.PI / 2} position={[0, -35, 0]} opacity={0.2} width={200} height={200} blur={1} far={50} /> */}
       </Suspense>
-      <OrbitControls makeDefault minPolarAngle={0} maxPolarAngle={Math.PI / 1.75} />
+      <OrbitControls makeDefault minPolarAngle={0} maxPolarAngle={Math.PI / 1.75} enableZoom={false} />
+      
     </Canvas>
   )
 }
