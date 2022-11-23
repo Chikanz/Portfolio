@@ -4,36 +4,132 @@ import Card from "../components/Card.astro";
 
 import Junk from "../components/Junk.jsx";
 
-let games = await Astro.glob('../pages/Games/*.mdx');
+let games = await Astro.glob("../pages/Games/*.mdx");
+let web = await Astro.glob("../pages/Web/*.mdx");
+
+const socials = [
+	{
+		icon: "twitter",
+		link: "https://twitter.com/duckpizza_",
+	},
+	{
+		icon: "github",
+		link: "https://github.com/chikanz",
+	},
+	{
+		icon: "itch-io",
+		link: "https://snootboop.itch.io/",
+	},
+	{
+		icon: "youtube",
+		link: "https://www.youtube.com/channel/UC_I02j_siBz4y7L06nBjjiA",
+	},
+];
 ---
 
 <Layout title="Zac's portfolio" classes="bg-[#5e22e6] relative">
-	<main class="h-screen w-[70vw] mx-auto">
+	<div class="h-screen w-[70vw] mx-auto relative">
 		<div class="grid grid-cols-2 h-full">
-			<!-- Header text -->
-			<div class="flex flex-col gap-11 justify-center">
-				<h1 class="text-8xl font-medium">Zac Lucarelli</h1>
+			<div class="flex flex-col pr-36 gap-6 justify-center">
+				<!-- Header text -->
+				<h1 class="text-8xl mb-8 font-medium">Zac Lucarelli</h1>
 				<p class="text-4xl">
 					Developer + Designer of immersive 3D experiences accross
 					games, web and XR
-				</p>	
+				</p>
+
+				<!-- Socials -->
+				<div class="relative flex">
+					{
+						socials.map((s) => {
+							return (
+								<a
+									href={s.link}
+									class="text-5xl mr-2 hover:translate-y-[-4px] transition-transform"
+									target="_blank"
+									rel="noreferrer"
+								>
+									<i class={`lab la-${s.icon}`} />
+								</a>
+							);
+						})
+					}
+
+					<!-- Click hint -->
+					<div id="clickhint" class="absolute bottom-[-50px] transition-opacity">
+						<h3 class="opacity-90">
+							Click objects on the left to learn more about me! 👉
+						</h3>
+					</div>
+				</div>
 			</div>
 
 			<!-- 3D shit -->
-			<Junk client:load />
+			<div class="h-full">
+				<Junk client:load />
+			</div>
 		</div>
-	</main>
-	<section class="h-screen ring-4 ring-black bg-[#33b3e3] flex flex-col gap-36 justify-center items-center">
+
+		<!-- Scroll arrow -->
+		<div
+			id="scrollArrow"
+			class="absolute bottom-0 text-white left-[50%] mb-8 text-5xl animate-bounce z-10 hover:cursor-pointer"
+		>
+			<i class="las la-arrow-down"></i>
+		</div>
+	</div>
+
+	<!-- Games -->
+	<section
+		id="Games"
+		class="h-screen border-t-4 border-black border- bg-[#33b3e3] flex flex-col gap-36 justify-center items-center"
+	>
 		<h2 class="text-6xl">Games</h2>
 		<div class="grid grid-cols-3 grid-rows-2 container mx-auto gap-28">
-			{games.map((post) => {
-				return <Card 
-				title={post.frontmatter.title} 
-				description={post.frontmatter.description}
-				image={`/Cards/${post.frontmatter.img}`}
-				href={post.url}
-				/>;
-			})}
+			{
+				games.map((post) => {
+					return (
+						<Card
+							title={post.frontmatter.title}
+							description={post.frontmatter.description}
+							image={`/Cards/${post.frontmatter.img}`}
+							href={post.url}
+						/>
+					);
+				})
+			}
+		</div>
+	</section>
+
+	<!-- Web -->
+	<section
+		id="Web"
+		class="h-screen ring-4 ring-black bg-[#ffa722] flex flex-col gap-36 justify-center items-center"
+	>
+		<h2 class="text-6xl">Web</h2>
+		<div class="grid grid-cols-3 grid-rows-1 container mx-auto gap-28">
+			{
+				web.map((post) => {
+					return (
+						<Card
+							title={post.frontmatter.title}
+							description={post.frontmatter.description}
+							image={`/Cards/${post.frontmatter.img}`}
+							href={post.url}
+						/>
+					);
+				})
+			}
 		</div>
 	</section>
 </Layout>
+
+
+<script>
+	//Make scroll arrow smooth scroll to first section
+	document.querySelector('#scrollArrow').addEventListener('click', () => {
+		document.querySelector('#Games').scrollIntoView({
+			behavior: 'smooth',
+		});
+	});
+</script>
