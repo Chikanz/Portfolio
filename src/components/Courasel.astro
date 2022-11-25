@@ -1,0 +1,77 @@
+---
+const { className, slides } = Astro.props;
+
+import "swiper/css";
+import "swiper/core";
+---
+
+<div class={"swiper mySwiper" + className}>
+    <div class="swiper-wrapper">
+        {
+            slides.map((src, i) => {
+                // const type = src.includes("webm") ? "video" : "img";
+                const type = "video";
+                switch (type) {
+                    case "img":
+                        return (
+                            <div class="swiper-slide">
+                                <img src={src} />
+                            </div>
+                        );
+                    case "video":
+                        return (
+                            <div class="swiper-slide">
+                                <video loop autoplay={i == 0} muted>
+                                    <source
+                                        src={`/vids/webm/${src}.webm`}
+                                        type={`video/webm; codecs="vp9, vorbis"`}
+                                    />
+                                    <source
+                                        src={`/vids/mp4/${src}.mp4`}
+                                        type={`video/mp4; codecs="avc1.42E01E,mp4a.40.2"`}
+                                    />
+                                </video>
+                            </div>
+                        );
+                    default:
+                        return (
+                            <div class="swiper-slide">
+                                <h1>Unknown slide type</h1>
+                            </div>
+                        );
+                }
+            })
+        }
+    </div>
+</div>
+
+<style>
+    .swiper-slide img {
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    .swiper-slide {
+        @apply flex items-center justify-center;
+    }
+</style>
+
+<script>
+    import Swiper from "swiper/bundle";
+    import "swiper/css/bundle";
+
+    const swiper = new Swiper(".swiper");
+
+    swiper.init();
+
+    const vids = document.querySelectorAll(".swiper video") as NodeListOf<HTMLVideoElement>;
+    swiper.on("slideChange", function () {
+        vids.forEach((vid) => {
+            vid.pause();
+            vid.currentTime = 0;
+        });
+        vids[swiper.activeIndex].play();
+    });
+</script>

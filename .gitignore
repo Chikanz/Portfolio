@@ -130,3 +130,6 @@ dist
 .pnp.*
 
 pnpm-lock.yaml
+
+#wsl unfuck
+*.Identifier

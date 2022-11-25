@@ -5,12 +5,19 @@ export interface Props {
 		description: string;
 		img: string;
 		icons: string[];
+		ctaText?: string;
+		ctaLink?: string;
+		swiper? : string[];
 	};
 }
 
 const { frontmatter, file, url } = Astro.props;
 
-// console.log(Astro.props);
+const { title, description, img, icons, ctaText, ctaLink, swiper } = frontmatter;
+
+console.log(swiper);
+
+import Courasel from "../components/Courasel.astro";
 
 import "../styles/Post.css";
 
@@ -19,16 +26,12 @@ import "../styles/Post.css";
 let posts;
 const Category = url.split("/").slice(1, -1).join("/");
 
-if(Category === "Web")
-	posts = await Astro.glob("../pages/Web/*.mdx");
-else
-	posts = await Astro.glob("../pages/Games/*.mdx");
+if (Category === "Web") posts = await Astro.glob("../pages/Web/*.mdx");
+else posts = await Astro.glob("../pages/Games/*.mdx");
 
 const postIndex = posts.findIndex((post) => post.url === url);
 const prevPost = postIndex - 1 >= 0 ? posts[postIndex - 1] : null;
 const nextPost = postIndex + 1 < posts.length ? posts[postIndex + 1] : null;
-
-
 ---
 
 <!DOCTYPE html>
@@ -37,32 +40,52 @@ const nextPost = postIndex + 1 < posts.length ? posts[postIndex + 1] : null;
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="stylesheet" href="/LA/css/line-awesome.min.css">
+		<link rel="stylesheet" href="/LA/css/line-awesome.min.css" />
 		<title>{frontmatter.title} | Zac's Portfolio</title>
 	</head>
 
 	<body>
 		<!-- Pagination + home links -->
-		<div class="HeaderLinks relative flex w-full p-4 justify-between items-center text-black">
+		<div
+			class="HeaderLinks relative flex w-full p-4 justify-between items-center text-black"
+		>
 			<div>
-				{prevPost && 
-					<a class="flex items-center gap-5" href={prevPost.url}>
-						<i class="las la-arrow-left " style="font-size: 48px"/>
-						<p class="text-2xl">{prevPost.frontmatter.title}</p>
-					</a>
+				{
+					prevPost && (
+						<a class="flex items-center gap-5" href={prevPost.url}>
+							<i
+								class="las la-arrow-left "
+								style="font-size: 48px"
+							/>
+							<p class="text-2xl">{prevPost.frontmatter.title}</p>
+						</a>
+					)
 				}
 			</div>
-			<a href={`/#${Category}`} class="absolute left-[50%] translate-x-[-50%]"><i class="las la-home" style="font-size: 48px"/></a>
-			
-			{nextPost && <a class="flex items-center gap-5" href={nextPost.url}>
-				<p class="text-2xl text-right">{nextPost.frontmatter.title}</p>
-				<i class="las la-arrow-right " style="font-size: 48px"/>
-			</a>}
+			<a
+				href={`/#${Category}`}
+				class="absolute left-[50%] translate-x-[-50%]"
+				><i class="las la-home" style="font-size: 48px"></i>
+			</a>
+
+			{
+				nextPost && (
+					<a class="flex items-center gap-5" href={nextPost.url}>
+						<p class="text-2xl text-right">
+							{nextPost.frontmatter.title}
+						</p>
+						<i
+							class="las la-arrow-right "
+							style="font-size: 48px"
+						/>
+					</a>
+				)
+			}
 		</div>
 
 		<!-- Post -->
 		<article
-			class="max-w-3xl mx-auto bg-[#6d57ff] ring-2 ring-black mt-2 rounded-md pb-8"
+			class="max-w-4xl mx-auto bg-[#6d57ff] ring-2 ring-black mt-2 rounded-md pb-8 px-16"
 		>
 			<!-- Title -->
 			<header class="text-center p-10 pb-5">
@@ -74,8 +97,33 @@ const nextPost = postIndex + 1 < posts.length ? posts[postIndex + 1] : null;
 				</h2>
 			</header>
 
+			<!-- Swiper -->
+			{swiper && <Courasel
+				className={"w-full my-4 rounded aspect-video p-16 border-2 mb-10 border-black bg-[#5745cc]"}
+				slides={swiper}
+			/>}
+
+			<!-- CTA Button -->
+			{
+				ctaText && ctaLink && (
+					<div class="flex items-center justify-center py-4 pb-2">
+						<a
+							href={ctaLink}
+							target="_blank" rel="noopener"
+							class="flex items-center text-xl font-medium hover:scale-105 transition-all justify-center gap-3 bg-[#ffc700] text-black p-4 px-8 rounded border-2 border-black"
+						>
+							<p>{ctaText}</p>
+							<i
+								class="las la-arrow-right "
+								style="font-size: 24px"
+							/>
+						</a>
+					</div>
+				)
+			}
+
 			<!-- Post -->
-			<main class="px-16 text-lg">
+			<main class="text-lg">
 				<slot />
 			</main>
 		</article>
@@ -84,7 +132,7 @@ const nextPost = postIndex + 1 < posts.length ? posts[postIndex + 1] : null;
 
 <style>
 	.HeaderLinks > * {
-		@apply hover:scale-105 transition-transform
+		@apply hover:scale-105 transition-transform;
 	}
 </style>
 
