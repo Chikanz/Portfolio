@@ -15,8 +15,6 @@ const { frontmatter, file, url } = Astro.props;
 
 const { title, description, img, icons, ctaText, ctaLink, swiper } = frontmatter;
 
-console.log(swiper);
-
 import Courasel from "../components/Courasel.astro";
 
 import "../styles/Post.css";
@@ -32,6 +30,8 @@ else posts = await Astro.glob("../pages/Games/*.mdx");
 const postIndex = posts.findIndex((post) => post.url === url);
 const prevPost = postIndex - 1 >= 0 ? posts[postIndex - 1] : null;
 const nextPost = postIndex + 1 < posts.length ? posts[postIndex + 1] : null;
+
+import 'line-awesome/dist/line-awesome/css/line-awesome.min.css';
 ---
 
 <!DOCTYPE html>
@@ -85,7 +85,7 @@ const nextPost = postIndex + 1 < posts.length ? posts[postIndex + 1] : null;
 
 		<!-- Post -->
 		<article
-			class="max-w-4xl mx-auto bg-[#6d57ff] ring-2 ring-black mt-2 rounded-md pb-8 px-16"
+			class="max-w-4xl mx-auto bg-[#6d57ff] ring-2 ring-black mt-2 rounded-md pb-8 mb-8 px-16"
 		>
 			<!-- Title -->
 			<header class="text-center p-10 pb-5">
@@ -110,7 +110,7 @@ const nextPost = postIndex + 1 < posts.length ? posts[postIndex + 1] : null;
 						<a
 							href={ctaLink}
 							target="_blank" rel="noopener"
-							class="flex items-center text-xl font-medium hover:scale-105 transition-all justify-center gap-3 bg-[#ffc700] text-black p-4 px-8 rounded border-2 border-black"
+							class="flex items-center text-xl font-medium hover:scale-105 transition-all justify-center gap-3 bg-[#ff80f2] text-black p-4 px-8 rounded border-2 border-black"
 						>
 							<p>{ctaText}</p>
 							<i

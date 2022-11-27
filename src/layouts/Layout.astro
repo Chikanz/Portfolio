@@ -4,6 +4,8 @@ export interface Props {
 }
 
 const { title, classes } = Astro.props;
+
+import 'line-awesome/dist/line-awesome/css/line-awesome.min.css';
 ---
 
 <!DOCTYPE html>
@@ -11,7 +13,6 @@ const { title, classes } = Astro.props;
 	<meta charset="UTF-8" />
 	<meta name="viewport" content="width=device-width" />
 	<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-	<link rel="stylesheet" href="/LA/css/line-awesome.min.css">
 	<title>{title}</title>
 
 	<body class={classes}>

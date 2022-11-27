@@ -16,6 +16,7 @@ var hasControls = data.gfyItem.hasAudio;
     poster={data.gfyItem.posterUrl}
     controls={hasControls}
     class="border-black border-2 rounded"
+    preload="none"
 >
     <source
         src={data.gfyItem.webmUrl}

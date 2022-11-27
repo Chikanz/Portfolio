@@ -3,19 +3,20 @@ const { className, slides } = Astro.props;
 
 import "swiper/css";
 import "swiper/core";
+
+import { Image, Picture } from '@astrojs/image/components';
 ---
 
 <div class={"swiper mySwiper" + className}>
     <div class="swiper-wrapper">
         {
             slides.map((src, i) => {
-                // const type = src.includes("webm") ? "video" : "img";
-                const type = "video";
+                const type = (src.includes("webp") || src.includes("jpg") || src.includes("png")) ? "img" : "video";
                 switch (type) {
                     case "img":
                         return (
                             <div class="swiper-slide">
-                                <img src={src} />
+                                <Picture src={src} quality={100} formats={['avif', 'webp', 'jpeg']} aspectRatio={'16:9'} widths={[1500, 2000]} fit={'cover'} alt="" />
                             </div>
                         );
                     case "video":
@@ -68,6 +69,18 @@ import "swiper/core";
 
     const vids = document.querySelectorAll(".swiper video") as NodeListOf<HTMLVideoElement>;
     swiper.on("slideChange", function () {
+
+        // Check if video is next or previous slide and hide all others
+        for (let i = 0; i < vids.length; i++) {
+            const vid = vids[i];
+            if (i == swiper.activeIndex || i == swiper.activeIndex - 1 || i == swiper.activeIndex + 1) {
+                vid.classList.remove('hidden');
+            } else {
+                vid.classList.add('hidden');
+            }
+        }
+
+        // Reset time when swiped to
         vids.forEach((vid) => {
             vid.pause();
             vid.currentTime = 0;
