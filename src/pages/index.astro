@@ -1,6 +1,7 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import Card from "../components/Card.astro";
+import Clients from "../components/Clients.astro";
 
 import Junk from "../components/Junk.jsx";
 
@@ -31,14 +32,14 @@ const socials = [
 ];
 ---
 
-<Layout title="Zac's portfolio" classes="bg-[#5e22e6] relative">
-	<div class="h-screen w-[70vw] mx-auto relative">
-		<div class="grid grid-cols-2 h-full">
-			<div class="flex flex-col pr-36 gap-6 justify-center">
+<Layout title="Zac's portfolio" classes="bg-[#5e22e6] relative h-full">
+	<div class="h-full w-full lg:p-20 2xl:w-[70vw] mx-auto relative">
+		<div class="grid grid-cols-1 lg:grid-cols-2 grid-rows-2 lg:grid-rows-1 h-full">
+			<div class="flex flex-col md:pr-36 gap-6 justify-start md:justify-center order-2 lg:order-1 px-4">
 				<!-- Header text -->
-				<h1 class="text-8xl mb-8 font-medium">Zac Lucarelli</h1>
-				<p class="text-4xl">
-					Developer + Designer of immersive 3D experiences accross
+				<h1 class="text-5xl md:text-8xl md:mb-8 font-medium">Zac Lucarelli</h1>
+				<p class="text-xl md:text-4xl">
+					Developer + Designer of immersive 3D experiences across
 					games, web and XR
 				</p>
 
@@ -49,7 +50,7 @@ const socials = [
 							return (
 								<a
 									href={s.link}
-									class="text-5xl mr-2 hover:translate-y-[-4px] transition-transform"
+									class="text-4xl md:text-5xl mr-2 hover:translate-y-[-4px] transition-transform"
 									target="_blank"
 									rel="noreferrer"
 								>
@@ -61,15 +62,19 @@ const socials = [
 
 					<!-- Click hint -->
 					<div id="clickhint" class="absolute bottom-[-50px] transition-opacity">
-						<h3 class="opacity-90">
+						<h3 class="opacity-90 hidden md:block">
 							Click objects on the left to learn more about me! 👉
+						</h3>
+
+						<h3 class="opacity-90 block md:hidden">
+							Click objects above to learn more about me! 👆
 						</h3>
 					</div>
 				</div>
 			</div>
 
 			<!-- 3D shit -->
-			<div class="h-full">
+			<div class="h-full md:h-full order-1 lg:order-2">
 				<Junk client:load />
 			</div>
 		</div>
@@ -77,19 +82,19 @@ const socials = [
 		<!-- Scroll arrow -->
 		<div
 			id="scrollArrow"
-			class="absolute bottom-0 text-white left-[50%] mb-8 text-5xl animate-bounce z-10 hover:cursor-pointer"
+			class="absolute bottom-0 text-white left-[50%] mb-2 lg:mb-8 text-5xl animate-bounce z-10 hover:cursor-pointer"
 		>
-			<i class="las la-arrow-down"></i>
+			<i class="las la-arrow-down translate-x-[-50%]"></i>
 		</div>
 	</div>
 
 	<!-- Games -->
 	<section
 		id="Games"
-		class="h-screen border-t-4 border-black border- bg-[#33b3e3] flex flex-col gap-36 justify-center items-center"
+		class="lg:h-screen border-t-4 border-black bg-[#33b3e3] flex flex-col lg:gap-36 justify-center items-center"
 	>
-		<h2 class="text-6xl">Games</h2>
-		<div class="grid grid-cols-3 grid-rows-2 container mx-auto gap-28">
+		<h2 class="text-6xl my-8 md:m-0">Games</h2>
+		<div class="CardGrid">
 			{
 				games.map((post) => {
 					return (
@@ -108,10 +113,10 @@ const socials = [
 	<!-- Web -->
 	<section
 		id="Web"
-		class="h-screen ring-4 ring-black bg-[#ffa722] flex flex-col gap-36 justify-center items-center"
+		class="lg:h-screen ring-4 ring-black bg-[#ffa722] flex flex-col lg:gap-36 justify-center items-center"
 	>
-		<h2 class="text-6xl">Web</h2>
-		<div class="grid grid-cols-3 grid-rows-1 container mx-auto gap-28">
+		<h2 class="text-6xl mt-8 md:m-0">Web</h2>
+		<div class="CardGrid">
 			{
 				web.map((post) => {
 					return (
@@ -126,6 +131,16 @@ const socials = [
 			}
 		</div>
 	</section>
+
+	<!-- CTA -->
+
+	<section class="lg:h-screen bg-[#ff8774] flex flex-col justify-around items-center border-t-4 border-black">
+		<Clients/>
+		<div class="flex flex-col gap-12 justify-center items-center text-center h-screen lg:h-full">
+			<h1 class="text-8xl">Let's talk</h1>
+			<a class="text-5xl underline" href="mailto:hi@duck.pizza">hi@duck.pizza</a>
+		</div>
+	</section>
 </Layout>
 
 
@@ -137,3 +152,10 @@ const socials = [
 		});
 	});
 </script>
+
+<style>
+	.CardGrid{
+		@apply grid grid-cols-1 lg:grid-cols-3 grid-rows-1 container mx-auto gap-4 lg:gap-28 px-5 my-10;
+	}
+
+</style>

@@ -133,3 +133,6 @@ pnpm-lock.yaml
 
 #wsl unfuck
 *.Identifier
+
+# Local Netlify folder
+.netlify

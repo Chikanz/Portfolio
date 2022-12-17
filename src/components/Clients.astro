@@ -1,6 +1,19 @@
+---
+const clients = await Astro.glob("../img/clients/*.{jpg,png,webp,svg}");
+---
+
 <!-- Client list -->
-<div class="flex justify-center w-full">
-    <div class="bg-white w-[80%] h-36 flex flex-col items-center p-3 ring-4 ring-black mt-[-4.5rem]">
+<div class="flex justify-center w-full mt-20 lg:mt-[-4.5rem]">
+    <div
+        class="bg-white px-12 lg:h-40 flex flex-col items-center p-3 ring-4 ring-black"
+    >
         <h2 class="text-black text-3xl font-medium">Clients</h2>
+        <div class="flex flex-col lg:flex-row items-center h-full justify-center gap-20 w-full">
+            {
+                clients.map((img) => {
+                    return <img class="h-16 max-w-2" src={img.default.src || img.default} />;
+                })
+            }
+        </div>
     </div>
 </div>

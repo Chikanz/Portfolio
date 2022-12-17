@@ -1,8 +1,8 @@
-import { Suspense, useEffect, useState } from 'react'
-import { Canvas, useLoader } from '@react-three/fiber'
+import { Suspense, useEffect, useRef, useState } from 'react'
+import { Canvas, useFrame, useLoader } from '@react-three/fiber'
 import { Bounds, useBounds, OrbitControls, ContactShadows, useGLTF, PresentationControls, useCursor } from '@react-three/drei'
 import { TextureLoader } from 'three/src/loaders/TextureLoader'
-import { MeshStandardMaterial } from 'three'
+import * as THREE from 'three'
 
 
 const items = {
@@ -36,32 +36,20 @@ const items = {
   },
   "Pan": {
     title: 'Cooking',
-    description: "I'm not half bad at cooking. I'll make you the best burrito you've had in your life."
+    description: "I'm not half bad at cooking. I'll make you a damn good burrito."
   },
   "Houseplant": {
     title: 'House plants',
     description: "Catch me at bunnings on the weekend buying more plants than I can handle. I also love gardening!"
   },
   "Curly": {
-    title: "I'm just a decorative rope",
+    title: "I'm just a decorative thing",
     description: "leave me alone",
   },
-  // "Zac_1": {
-  //   title: "That's my beard",
-  //   description: "it's itchy :(",
-  // },
-  // "Zac_2": {
-  //   title: "2",
-  //   description: "2",
-  // },
-  // "Zac_3": {
-  //   title: "Got ya nose",
-  //   description: "",
-  // },
-  // "Zac_4": {
-  //   title: "4",
-  //   description: "2",
-  // },
+  "Zac": {
+    title: "That's me!",
+    description: "Please stop poking me",
+  },
 
 }
 
@@ -82,24 +70,11 @@ const nodes = [
   "Headphones",
   "Pizza_Slice",
   "Sphere",
-  "Zac_1",
-  "Zac_2",
-  "Zac_3",
-  "Zac_4",
-  "Zac_5",
-]
+];
+
+
 
 export default function Junk(props) {
-
-  // const [material, setMaterial] = useState(null);
-  // useEffect(() => {
-
-  //   //load texture
-  //   const map = await useLoader(TextureLoader, '/Bake.webp');
-  //   setMaterial(new MeshStandardMaterial({ map: null }));
-  // }, []);
-
-
   return (
     <div className='relative h-full'>
       <Canvas camera={{ position: [0, -10, 80], fov: 50 }} dpr={[1, 2]} className={''}>
@@ -114,11 +89,14 @@ export default function Junk(props) {
                   return <Model key={node} name={node} />
                 })
               }
+
+              <Zac />
+
             </SelectToZoom>
           </Bounds>
           {/* <ContactShadows rotation-x={Math.PI / 2} position={[0, -35, 0]} opacity={0.2} width={200} height={200} blur={1} far={50} /> */}
         </Suspense>
-        <OrbitControls makeDefault minPolarAngle={0} maxPolarAngle={Math.PI / 1.75} enableZoom={false} />
+        <OrbitControls makeDefault minPolarAngle={0} maxPolarAngle={Math.PI / 1.75} enableZoom={false} enablePan={false} />
       </Canvas>
 
       {/* Text display */}
@@ -133,19 +111,19 @@ export default function Junk(props) {
 function Model({ name, material, ...props }) {
   const { nodes, materials } = useGLTF('/junk_test.gltf');
 
+  // console.log(nodes);
+
   const [hovered, setHovered] = useState(false)
   useCursor(hovered);
 
   if (!nodes[name]) return null;
 
-  console.log(nodes[name].material);
-
   return <mesh
     geometry={nodes[name].geometry}
     material={nodes[name].material}
     name={name}
-    material-emissive={name.includes("Zac") ? "#000000" : "#4E1CBE"}
-    material-side={name === "Houseplant" ? 2 : 2}
+    material-emissive={name.includes("Mesh") ? "#000000" : "#4E1CBE"}
+    material-side={name === "Houseplant" ? 2 : 0}
     material-roughness={1}
     onClick={() => setText(name)}
     onPointerOver={() => setHovered(true)}
@@ -190,6 +168,39 @@ function SelectToZoom(props) {
   return (
     <group onClick={handleClick} onPointerMissed={handleMiss}>
       {props.children}
+    </group>
+  )
+}
+
+const Zacs = [
+  "Mesh",
+  "Mesh_1",
+  "Mesh_2",
+  "Mesh_3",
+  "Mesh_4",
+  "Mesh_5",
+  "Mesh_6",
+]
+function Zac(props) {
+
+  // Make head bobble
+  const head = useRef();
+
+  useFrame((state) => {
+    const t = state.clock.getElapsedTime() * 2;
+    head.current.rotation.x = THREE.MathUtils.lerp(head.current.rotation.x, Math.cos(t / 10) / 100, 0.1);
+    head.current.rotation.y = THREE.MathUtils.lerp(head.current.rotation.y, Math.sin(t / 5) / 4, 0.1);
+    head.current.rotation.z = THREE.MathUtils.lerp(head.current.rotation.z, Math.sin(t / 10) / 10, 0.1);
+    head.current.position.y = THREE.MathUtils.lerp(head.current.position.y, (-2 + Math.sin(t)) / 3, 0.1);
+  });
+
+  return (
+    <group ref={head} >
+      {
+        Zacs.map((node) => {
+          return <Model key={node} name={node} onClick={() => setText("Zac")} />
+        })
+      }
     </group>
   )
 }

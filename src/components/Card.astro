@@ -1,5 +1,5 @@
 ---
-import { Image } from '@astrojs/image/components';
+import { Image, Picture } from "@astrojs/image/components";
 
 export interface Props {
 	title: string;
@@ -9,13 +9,37 @@ export interface Props {
 }
 
 const { title, description, image, href } = Astro.props;
-
 ---
 
-<a class="card flex flex-col ring-2 ring-black rounded-lg data-tilt bg-white" data-tilt-scale="1.1" data-tilt-glare="true" data-tilt-max-glare="0.3" href={href}>
+<a
+	class="card flex flex-col ring-2 ring-black rounded-lg data-tilt bg-white"
+	data-tilt-scale="1.1"
+	data-tilt-glare="true"
+	data-tilt-max-glare="0.3"
+	href={href}
+>
 	<!-- <Image src={image} alt={title} format="webp" height="500" aspectRatio="16:9" class="w-full object-cover rounded-t-lg" /> -->
-	<img src={image} alt={title} class="w-full aspect-video object-cover rounded-t-lg" />
-	<div class="flex justify-between p-7 py-5 pt-3 rounded-b-lg" style={"transform: translateZ(20px)"}>
+	<!-- <img src={image} alt={title} class="w-full aspect-video object-cover rounded-t-lg" /> -->
+	<!-- <Picture
+		src={image}
+		alt={title}
+	/> -->
+	<Picture
+		src={image}
+		alt={title}
+		quality={100}
+		loading="eager"
+		formats={["avif", "webp", "jpeg"]}
+		aspectRatio={"16:9"}
+		widths={[1000]}
+		fit={"cover"}
+		alt=""
+		class="w-full aspect-video object-cover rounded-t-lg"
+	/>
+	<div
+		class="flex justify-between p-7 py-5 pt-3 rounded-b-lg"
+		style={"transform: translateZ(20px)"}
+	>
 		<!-- Title Text -->
 		<div class="flex flex-col text-black">
 			<h2 class="text-2xl font-medium lowercase">{title}</h2>

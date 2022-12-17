@@ -5,15 +5,48 @@ export interface Props {
 
 const { title, classes } = Astro.props;
 
-import 'line-awesome/dist/line-awesome/css/line-awesome.min.css';
+import "line-awesome/dist/line-awesome/css/line-awesome.min.css";
 ---
 
 <!DOCTYPE html>
-<html lang="en" class="text-white font-sans">
+<html lang="en" class="text-white font-sans h-full">
 	<meta charset="UTF-8" />
 	<meta name="viewport" content="width=device-width" />
-	<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+	<link rel="icon" type="image/webp" href="/favicon.webp" />
 	<title>{title}</title>
+
+	<!-- Primary Meta Tags -->
+	<meta name="title" content="Zac's portfolio" />
+	<meta
+		name="description"
+		content="Developer + Designer of immersive 3D experiences across
+					games, web and XR"
+	/>
+
+	<!-- Open Graph / Facebook -->
+	<meta property="og:type" content="website" />
+	<meta property="og:title" content="Zac's portfolio" />
+	<meta
+		property="og:description"
+		content="Developer + Designer of immersive 3D experiences across games, web and XR"
+	/>
+	<meta
+		property="og:image"
+		content="/socialCover.jpg"
+	/>
+
+	<!-- Twitter -->
+	<meta property="twitter:card" content="summary_large_image" />
+	<meta property="twitter:title" content="Zac's portfolio" />
+	<meta
+		property="twitter:description"
+		content="Developer + Designer of immersive 3D experiences across
+					games, web and XR"
+	/>
+	<meta
+		property="twitter:image"
+		content="/socialCover.jpg"
+	/>
 
 	<body class={classes}>
 		<slot />

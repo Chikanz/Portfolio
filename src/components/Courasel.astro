@@ -4,19 +4,33 @@ const { className, slides } = Astro.props;
 import "swiper/css";
 import "swiper/core";
 
-import { Image, Picture } from '@astrojs/image/components';
+import { Image, Picture } from "@astrojs/image/components";
 ---
 
 <div class={"swiper mySwiper" + className}>
     <div class="swiper-wrapper">
         {
             slides.map((src, i) => {
-                const type = (src.includes("webp") || src.includes("jpg") || src.includes("png")) ? "img" : "video";
+                const type =
+                    src.includes("webp") ||
+                    src.includes("jpg") ||
+                    src.includes("png")
+                        ? "img"
+                        : "video";
                 switch (type) {
                     case "img":
                         return (
                             <div class="swiper-slide">
-                                <Picture src={src} quality={100} formats={['avif', 'webp', 'jpeg']} aspectRatio={'16:9'} widths={[1500, 2000]} fit={'cover'} alt="" />
+                                <Picture
+                                    src={src}
+                                    quality={100}
+                                    loading="eager"
+                                    formats={["avif", "webp", "jpeg"]}
+                                    aspectRatio={"16:9"}
+                                    widths={[1500, 2000]}
+                                    fit={"cover"}
+                                    alt=""
+                                />
                             </div>
                         );
                     case "video":
@@ -44,6 +58,12 @@ import { Image, Picture } from '@astrojs/image/components';
             })
         }
     </div>
+    <div class="swiper-button-next stroke">
+        <i class="las la-angle-right" style="font-size: 48px"></i>
+    </div>
+    <div class="swiper-button-prev stroke">
+        <i class="las la-angle-left" style="font-size: 48px"></i>
+    </div>
 </div>
 
 <style>
@@ -57,26 +77,52 @@ import { Image, Picture } from '@astrojs/image/components';
     .swiper-slide {
         @apply flex items-center justify-center;
     }
+
+    .swiper-button-next::after,
+    .swiper-button-prev::after {
+        content: "";
+    }
+
+    .stroke {
+        @apply transition-all;
+        --stroke-color: black;
+        --stroke-width: 2px;
+        color: #ffc700;
+        text-shadow: var(--stroke-width) 0 0 var(--stroke-color),
+            calc(var(--stroke-width) * -1) 0 0 var(--stroke-color),
+            0 var(--stroke-width) 0 var(--stroke-color),
+            0 calc(var(--stroke-width) * -1) 0 var(--stroke-color);
+    }
 </style>
 
 <script>
     import Swiper from "swiper/bundle";
     import "swiper/css/bundle";
 
-    const swiper = new Swiper(".swiper");
+    const swiper = new Swiper(".swiper", {
+        navigation: {
+            nextEl: ".swiper-button-next",
+            prevEl: ".swiper-button-prev",
+        },
+    });
 
     swiper.init();
 
-    const vids = document.querySelectorAll(".swiper video") as NodeListOf<HTMLVideoElement>;
+    const vids = document.querySelectorAll(
+        ".swiper video"
+    ) as NodeListOf<HTMLVideoElement>;
     swiper.on("slideChange", function () {
-
         // Check if video is next or previous slide and hide all others
         for (let i = 0; i < vids.length; i++) {
             const vid = vids[i];
-            if (i == swiper.activeIndex || i == swiper.activeIndex - 1 || i == swiper.activeIndex + 1) {
-                vid.classList.remove('hidden');
+            if (
+                i == swiper.activeIndex ||
+                i == swiper.activeIndex - 1 ||
+                i == swiper.activeIndex + 1
+            ) {
+                vid.classList.remove("hidden");
             } else {
-                vid.classList.add('hidden');
+                vid.classList.add("hidden");
             }
         }
 
