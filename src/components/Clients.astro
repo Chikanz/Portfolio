@@ -11,7 +11,7 @@ const clients = await Astro.glob("../img/clients/*.{jpg,png,webp,svg}");
         <div class="flex flex-col lg:flex-row items-center h-full justify-center gap-20 w-full">
             {
                 clients.map((img) => {
-                    return <img class="h-16 max-w-2" src={img.default.src || img.default} />;
+                    return <img class="h-16 " src={img.default.src || img.default} />;
                 })
             }
         </div>

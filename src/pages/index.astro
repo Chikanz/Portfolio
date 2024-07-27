@@ -8,26 +8,34 @@ import Junk from "../components/Junk.jsx";
 let games = await Astro.glob("../pages/Games/*.mdx");
 let web = await Astro.glob("../pages/Web/*.mdx");
 
+//sort games and web by order prop
+games = games.sort((a, b) => a.frontmatter.order - b.frontmatter.order);
+web = web.sort((a, b) => a.frontmatter.order - b.frontmatter.order);
+
 const socials = [
 	{
-		icon: "twitter",
+		icon: "lab la-twitter",
 		link: "https://twitter.com/duckpizza_",
 	},
 	{
-		icon: "github",
+		icon: "lab la-github",
 		link: "https://github.com/chikanz",
 	},
 	{
-		icon: "itch-io",
+		icon: "lab la-itch-io",
 		link: "https://snootboop.itch.io/",
 	},
 	{
-		icon: "linkedin",
+		icon: "lab la-linkedin",
 		link: "https://www.linkedin.com/in/zac-lucarelli-95a0b01b9/",
 	},
 	{
-		icon: "youtube",
+		icon: "lab la-youtube",
 		link: "https://www.youtube.com/channel/UC_I02j_siBz4y7L06nBjjiA",
+	},
+	{
+		icon: "las la-envelope",
+		link: "mailto:hi@duck.pizza",
 	},
 ];
 ---
@@ -54,7 +62,7 @@ const socials = [
 									target="_blank"
 									rel="noreferrer"
 								>
-									<i class={`lab la-${s.icon}`} />
+									<i class={`${s.icon}`} />
 								</a>
 							);
 						})
@@ -107,6 +115,7 @@ const socials = [
 					);
 				})
 			}
+			
 		</div>
 	</section>
 
@@ -134,12 +143,19 @@ const socials = [
 
 	<!-- CTA -->
 
-	<section class="lg:h-screen bg-[#ff8774] flex flex-col justify-around items-center border-t-4 border-black">
+	<section class="relative lg:h-screen  bg-[#ff654d] flex flex-col justify-around items-center border-t-4 border-black">
 		<Clients/>
 		<div class="flex flex-col gap-12 justify-center items-center text-center h-screen lg:h-full">
-			<h1 class="text-8xl">Let's talk</h1>
+			<h1 class="text-8xl">Let's have a yap</h1>
 			<a class="text-5xl underline" href="mailto:hi@duck.pizza">hi@duck.pizza</a>
 		</div>
+
+		<!-- Footer -->
+		 <a class="absolute right-3 bottom-3 text-xs opacity-80 underline" target="_blank" href="https://poly.pizza/l/a8UTwHoG4K">Model credits</a>	
+		<!-- <div class="absolute flex relative items-center justify-center bottom-0 w-full gap-2 h-20 bg-[#ff8774] p-2 border-t-4 border-black"> -->
+			<!-- <a class=""  href="https://github.com/Chikanz/Portfolio">Made with 🍕 by me</a>	 -->
+			<!-- <a class=" absolute right-3 bottom-3 text-xs opacity-80 underline" target="_blank" href="https://poly.pizza/l/a8UTwHoG4K">Model credits</a>	 -->
+		<!-- </div> -->
 	</section>
 </Layout>
 

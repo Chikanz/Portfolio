@@ -1,29 +1,16 @@
 ---
 const { id } = Astro.props;
-
-import axios from "axios";
-const url = "https://api.gfycat.com/v1/gfycats/";
-
-const res = await axios.get(url + id);
-const data = res.data;
-var hasControls = data.gfyItem.hasAudio;
 ---
 
 <video
     loop
     autoplay="true"
     muted
-    poster={data.gfyItem.posterUrl}
-    controls={hasControls}
     class="border-black border-2 rounded"
     preload="none"
 >
     <source
-        src={data.gfyItem.webmUrl}
-        type={`video/webm; codecs="vp8, vorbis"`}
-    />
-    <source
-        src={data.gfyItem.mp4Url}
-        type={`video/mp4; codecs="avc1.42E01E,mp4a.40.2"`}
+        src={`/vids/mp4/${id}.mp4`}
+        type={`video/mp4;`}
     />
 </video>
