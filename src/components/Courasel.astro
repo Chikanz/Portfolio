@@ -80,14 +80,14 @@ import { Image, Picture } from "@astrojs/image/components";
 
     .swiper-button-next::after,
     .swiper-button-prev::after {
-        content: "";
+        content: "" !important;
     }
 
     .stroke {
         @apply transition-all;
         --stroke-color: black;
         --stroke-width: 2px;
-        color: #ffc700;
+        color: #ffc700 !important;
         text-shadow: var(--stroke-width) 0 0 var(--stroke-color),
             calc(var(--stroke-width) * -1) 0 0 var(--stroke-color),
             0 var(--stroke-width) 0 var(--stroke-color),
